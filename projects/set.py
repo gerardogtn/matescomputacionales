@@ -28,3 +28,6 @@ class Set:
 
     def size(self):
         return len(self.entries)
+
+    def __str__(self):
+        return str(self.entries)
