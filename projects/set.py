@@ -31,3 +31,10 @@ class Set:
 
     def __str__(self):
         return str(self.entries)
+
+    def __eq__(self, other):
+        eq = isinstance(other, Set)
+        eq = eq and self.size() == other.size()
+        for e in self.entries:
+            eq = eq and other.contains(e)
+        return eq

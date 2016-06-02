@@ -28,3 +28,21 @@ def test_remove():
     set.remove(3)
     assert set.size() == 2
     assert (not set.contains(3))
+
+def test_empty_equals():
+    set = Set()
+    other = Set()
+    assert set == other
+
+def test_equals():
+    set = Set()
+    set.addAll([1, 2, 3])
+    other = Set()
+    other.addAll([3, 2, 1])
+    assert set == other
+
+def test_not_equals():
+    set = Set()
+    other = Set()
+    other.add(1)
+    assert not set == other
