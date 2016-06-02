@@ -1,7 +1,7 @@
 class Set:
-    entries = []
 
     def __init__(self):
+        self.entries = []
         pass
 
     def add(self, entry):
