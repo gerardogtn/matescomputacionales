@@ -2,29 +2,22 @@ from set import Set
 ## Given a list of pairs, representing a relation, return true if
 ## the relation is reflexive, False otherwise.
 def isReflexive(pairs):
-    out = True
-    for p1 in pairs:
-        found = False
-        for p2 in pairs:
-            if p1[1] == p2[0] and p1[0] == p2[1]:
-                found = True
-                break
-        out = out and found
-    return out
+    allSet = Set()
+    reflexiveSet = Set()
+    for p in pairs:
+        allSet.addAll(p)
+        if (p[0] == p[1]):
+            reflexiveSet.add(p[0])
+    return allSet == reflexiveSet
 
 ## List<List<Char>> -> Bool
 ## Given a list of pairs, representing a relation, return true if
 ## the relation is irreflexive, False otherwise.
 def isIrreflexive(pairs):
-    out = True
-    for p1 in pairs:
-        found = True
-        for p2 in pairs:
-            if (p1[1] == p2[0] and p1[0] == p2[1]):
-                found = False
-                break
-        out = out and found
-    return out
+    for p in pairs:
+        if (p[0] == p[1]):
+            return False
+    return True
 
 ## List<List<Char>> -> Bool
 ## Given a list of pairs, representing a relation, return true if
@@ -40,7 +33,6 @@ def isTransitive(pairs):
 
     allSet = Set()
     [allSet.addAll(x) for x in pairs]
-    print transitiveSet, allSet
     return transitiveSet.size() == allSet.size()
 
 
@@ -73,7 +65,6 @@ def isSymmetric(pairs):
 def isAsymmetric(pairs):
     for p1 in pairs:
         for p2 in pairs:
-            print p1, p2
             if (p1[0] == p2[1] and p1[1] == p2[0]):
                 return False
     return True
