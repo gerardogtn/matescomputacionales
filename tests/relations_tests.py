@@ -1,5 +1,5 @@
 from nose.tools import *
-import projects.relations as r
+import project01.relations as r
 
 def test_reflexive():
     assert r.isReflexive([[1, 1], [2, 2], [4, 4]])

@@ -11,7 +11,7 @@ config = {
     'author_email': 'gerardogtn@gmail.com',
     'version': '0.1',
     'install_requires': ['nose'],
-    'packages': ['projects'],
+    'packages': ['project01', 'datastructures'],
     'scripts': [],
     'name': 'Projects'
 }

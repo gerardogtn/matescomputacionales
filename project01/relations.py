@@ -1,4 +1,4 @@
-from set import Set
+from datastructures.set import Set
 
 def isReflexive(pairs):
     """ Given a list of pair(a list of two elements). Return true if

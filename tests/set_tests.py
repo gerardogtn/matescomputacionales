@@ -1,6 +1,5 @@
 from nose.tools import *
-from projects.set import Set
-import projects
+from datastructures.set import Set
 
 def setup():
     print "SETUP!"
