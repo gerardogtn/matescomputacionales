@@ -10,10 +10,10 @@ config = {
     'download_url': 'https://github.com/gerardogtn/matematicascomputacionales',
     'author_email': 'gerardogtn@gmail.com',
     'version': '0.1',
-    'install_requires': ['py.test'],
-    'packages': ['project01', 'datastructures'],
+    'install_requires': ['pytest'],
+    'packages': find_packages(exclude=('tests', 'docs', 'bin')
     'scripts': [],
-    'name': 'Projects'
+    'name': 'Matematicas computacionales'
 }
 
 setup(**config)

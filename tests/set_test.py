@@ -1,4 +1,4 @@
-from datastructures.set import Set
+from matescomputacionales.datastructures.set import Set
 
 def setup():
     print "SETUP!"

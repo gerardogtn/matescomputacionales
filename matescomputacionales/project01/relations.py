@@ -1,4 +1,4 @@
-from datastructures.set import Set
+from matescomputacionales.datastructures.set import Set
 
 def isReflexive(pairs):
     """ Given a list of pair(a list of two elements). Return true if
@@ -25,15 +25,14 @@ def isTransitive(pairs):
     """ Given a list of pair(a list of two elements). Return true if
     the pairs are transitive, false otherwise.
     """
+    transitivePairs = []
     for p1 in pairs:
         for p2 in pairs:
             if p1[1] == p2[0]:
-                found = False
-                for p3 in pairs:
-                    if p3[0] == p1[0] and p3[1] == p2[1]:
-                        found = True
-                        break
-                if not found: return False
+                transitivePairs.append([p1[0], p2[1]])
+    for transitivePair in transitivePairs:
+        if transitivePair not in pairs:
+            return False
     return True
 
 

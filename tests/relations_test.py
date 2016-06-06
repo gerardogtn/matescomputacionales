@@ -1,4 +1,4 @@
-import project01.relations as r
+import matescomputacionales.project01.relations as r
 
 def test_reflexive():
     assert r.isReflexive([[1, 1], [2, 2], [4, 4]])
