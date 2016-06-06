@@ -25,17 +25,16 @@ def isTransitive(pairs):
     """ Given a list of pair(a list of two elements). Return true if
     the pairs are transitive, false otherwise.
     """
-    transitiveSet = Set()
     for p1 in pairs:
         for p2 in pairs:
-            for p3 in pairs:
-                if (not containsAll(p1, p2, transitiveSet) and p1[0] == p3[1] and p1[1] == p2[0] and p2[1] == p3[0]):
-                    transitiveSet.addAll(p1)
-                    transitiveSet.addAll(p2)
-
-    allSet = Set()
-    [allSet.addAll(x) for x in pairs]
-    return transitiveSet.size() == allSet.size()
+            if p1[1] == p2[0]:
+                found = False
+                for p3 in pairs:
+                    if p3[0] == p1[0] and p3[1] == p2[1]:
+                        found = True
+                        break
+                if not found: return False
+    return True
 
 
 def containsAll(firstPair, secondPair, set):
