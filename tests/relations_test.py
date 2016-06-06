@@ -1,4 +1,3 @@
-from nose.tools import *
 import project01.relations as r
 
 def test_reflexive():
@@ -21,6 +20,9 @@ def test_transitive_pair():
 
 def test_complete_transitive():
     assert r.isTransitive([[1, 2], [2, 3], [3, 4], [5, 4], [1, 3], [2, 4], [1, 4]])
+
+def test_curiel_transitive():
+    assert r.isTransitive([[1, 2], [2, 3], [1, 3], [1, 5]])
 
 def test_not_transitive():
     assert not r.isTransitive([[1, 2], [3, 1]])

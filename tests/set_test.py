@@ -1,4 +1,3 @@
-from nose.tools import *
 from datastructures.set import Set
 
 def setup():
