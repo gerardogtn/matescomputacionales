@@ -13,8 +13,14 @@ def test_irreflexive():
 def test_not_irreflexive():
     assert not r.isIrreflexive([[1, 1]])
 
-def test_transitive():
-    assert r.isTransitive([[1, 2], [2, 3], [3, 1]])
+def test_simple_transitive():
+    assert r.isTransitive([[1, 2], [2, 3], [1, 3]])
+
+def test_transitive_pair():
+    assert r.isTransitive([[1, 2], [2, 2]])
+
+def test_complete_transitive():
+    assert r.isTransitive([[1, 2], [2, 3], [3, 4], [5, 4], [1, 3], [2, 4], [1, 4]])
 
 def test_not_transitive():
     assert not r.isTransitive([[1, 2], [3, 1]])
