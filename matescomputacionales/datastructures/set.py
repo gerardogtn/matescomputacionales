@@ -4,6 +4,7 @@ class Set:
     def __init__(self, entries=[]):
         self.entries = []
         self.addAll(entries)
+        self.current = 0
         pass
 
     def add(self, entry):
@@ -49,6 +50,17 @@ class Set:
     # Return the string representation of self.entries
     def __str__(self):
         return str(self.entries)
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.current >= len(self.entries):
+            self.current = 0
+            raise StopIteration
+        else:
+            self.current += 1
+            return self.entries[self.current - 1]
 
     def __eq__(self, other):
         """ Return true if both entries are equal
