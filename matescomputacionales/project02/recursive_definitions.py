@@ -3,11 +3,11 @@ from matescomputacionales.datastructures.set import Set
 """ All strings used as patterns in a recursive definition"""
 patternStrings = ['u', 'v', 'w', 'x', 'y', 'z']
 
-def getStringsUntilNRecursiveStep(baseCase, recursiveSteps, N):
+def getStringsUntilNRecursiveStep(baseCases, recursiveSteps, N):
     """ Get all the strings formed until N recursive steps
 
     Keyword arguments:
-    baseCase -- BaseRecursiveString defining the base case of the language.
+    baseCase -- a list of BaseRecursiveString defining the base case of the language.
     recursiveSteps -- a set of RecursiveString indicating the valid strings.
     N -- number of recursive steps to perform
     onStringsAtStep -- A function (Set<RecursiveString> -> Void) executed every time
@@ -15,8 +15,8 @@ def getStringsUntilNRecursiveStep(baseCase, recursiveSteps, N):
     """
 
     n = 0
-    set = Set([baseCase])
-    previous = [baseCase]
+    set = Set(baseCases)
+    previous = baseCases
     while n < N :
         current = []
         for step in recursiveSteps:
