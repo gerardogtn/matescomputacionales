@@ -1,8 +1,9 @@
 class Set:
     """ A simple set class that delegates its behaviour to a list"""
 
-    def __init__(self):
+    def __init__(self, entries=[]):
         self.entries = []
+        self.addAll(entries)
         pass
 
     def add(self, entry):
