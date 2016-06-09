@@ -1,5 +1,5 @@
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup
 
@@ -11,7 +11,7 @@ config = {
     'author_email': 'gerardogtn@gmail.com',
     'version': '0.1',
     'install_requires': ['pytest'],
-    'packages': find_packages(exclude=('tests', 'docs', 'bin')
+    'packages': find_packages(exclude=('tests', 'docs', 'bin')),
     'scripts': [],
     'name': 'Matematicas computacionales'
 }
