@@ -10,7 +10,7 @@ def getAllCombinationsForStep(step, combinations, out):
     combinations -- a python set containing all possible combinations until N
     out -- a python set (initially empty) that accumulates all possible combinations
     for the current step
-    """"
+    """
     patternsInStep = filter(lambda x: x in patternStrings, step)
     if not patternsInStep :
         out.add(step)
