@@ -13,7 +13,7 @@ def getAllCombinationsForStep(step, combinations, out):
     return out
 
 
-def getStringsUntilNRecursiveStep(baseCases, recursiveSteps, N, callback=(lambda x: x)):
+def getStringsUntilNRecursiveStep(baseCases, recursiveSteps, N, callback=(lambda n, x: x)):
     """ Get all the strings formed until N recursive steps
 
     Keyword arguments:
@@ -27,11 +27,12 @@ def getStringsUntilNRecursiveStep(baseCases, recursiveSteps, N, callback=(lambda
     n = 0
     allStrings = set()
     allStrings = allStrings.union(baseCases)
+    callback(n, allStrings)
     while n < N:
         current = set()
         for step in recursiveSteps:
             current = current.union(getAllCombinationsForStep(step, allStrings, set()))
-        callback(current - current.intersection(allStrings))
+        callback(n + 1, current - current.intersection(allStrings))
         allStrings = allStrings.union(current)
         n = n + 1
 
