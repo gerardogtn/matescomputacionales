@@ -2,7 +2,15 @@
 patternStrings = ['u', 'v', 'w', 'x', 'y', 'z']
 
 def getAllCombinationsForStep(step, combinations, out):
-    # print 'Recursive call with step: ', step, " combinations: ", combinations, " out: ", out
+    """" Given a single recursive definition and all possible combinations to fill
+    each pattern with, return all possible combinations
+
+    Keyword arguments:
+    step -- a string representing a single recursive definition
+    combinations -- a python set containing all possible combinations until N
+    out -- a python set (initially empty) that accumulates all possible combinations
+    for the current step
+    """"
     patternsInStep = filter(lambda x: x in patternStrings, step)
     if not patternsInStep :
         out.add(step)
