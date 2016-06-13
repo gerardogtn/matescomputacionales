@@ -14,10 +14,9 @@ def getAllCombinationsForStep(step, combinations, out):
     patternsInStep = filter(lambda x: x in patternStrings, step)
     if not patternsInStep :
         out.add(step)
-        return out
     else:
         for c in combinations:
-            out.union(getAllCombinationsForStep(step.replace(patternsInStep[0], c), combinations, out))
+            getAllCombinationsForStep(step.replace(patternsInStep[0], c), combinations, out)
     return out
 
 
