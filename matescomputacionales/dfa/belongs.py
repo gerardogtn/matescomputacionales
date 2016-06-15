@@ -1,5 +1,8 @@
-def belongs(transitionFunction, initialState, finalStates, string):
+def belongs(transitionFunction, initialState, finalStates, defaultState, string):
     currentState = initialState
     for s in string:
-        currentState = transitionFunction[currentState][s]
+        try:
+            currentState = transitionFunction[currentState][s]
+        except KeyError:
+            currentState = defaultState
     return currentState in finalStates

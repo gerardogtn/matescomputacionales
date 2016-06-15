@@ -1,14 +1,18 @@
 import sys
 from belongs import belongs
 
-states = []
+fileName = sys.argv[1]
+stringToTest = sys.argv[2]
+
 initialState = ''
 finalStates = []
+defaultState = ''
 transitionFunction = {}
 
-with open(sys.argv[1], 'r') as file:
+with open(fileName, 'r') as file:
     initialState = file.readline().split()[0]
     finalStates = file.readline().split()
+    defaultState = file.readline().split()[0]
 
     for line in file:
         values = line.split()
@@ -17,4 +21,5 @@ with open(sys.argv[1], 'r') as file:
             current[values[i]] = values[i + 1]
         transitionFunction[values[0]] = current
 
-print ("Belongs" if belongs(transitionFunction, initialState, finalStates, sys.argv[2]) else "DOESN'T belong")
+belongs = belongs(transitionFunction, initialState, finalStates, defaultState, stringToTest)
+print ("Belongs" if belongs else "DOESN'T belong")
