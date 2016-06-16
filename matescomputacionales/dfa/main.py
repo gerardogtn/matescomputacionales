@@ -21,5 +21,5 @@ with open(fileName, 'r') as file:
             current[values[i]] = values[i + 1]
         transitionFunction[values[0]] = current
 
-belongs = belongs(transitionFunction, initialState, finalStates, defaultState, stringToTest)
+belongs = belongs(transitionFunction, initialState, finalStates, stringToTest, defaultState)
 print ("Belongs" if belongs else "DOESN'T belong")

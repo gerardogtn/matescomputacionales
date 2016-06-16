@@ -1,4 +1,4 @@
-def belongs(transitionFunction, initialState, finalStates, defaultState, string):
+def belongs(transitionFunction, initialState, finalStates, string, defaultState="",):
     currentState = initialState
     for s in string:
         try:
