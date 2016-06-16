@@ -21,25 +21,27 @@ def test_transform():
     assert expected_initialState == actual[3]
     assert expected_finalStates == actual[4]
 
-def test_empty_powerset():
+def test_empty_nfa_states():
     emptySet = set()
 
-    expected = {frozenset()}
-    actual = t.get_power_set(emptySet)
+    expected = {''}
+    actual = t.get_dfa_states(emptySet)
     assert actual == expected
 
-def test_double_powerset():
+def test_double_nfa_states():
     doubleSet = {'1', '2'}
 
-    expected = {frozenset(), frozenset({'1'}), frozenset({'2'}), frozenset({'1', '2'})}
-    actual = t.get_power_set(doubleSet)
+    expected = {'', '[1]', '[2]', '[12]'}
+    actual = t.get_dfa_states(doubleSet)
     assert actual == expected
 
 def test_transition_function():
     input_delta = {'q0': {'0': ['q0', 'q1'], '1': ['q.1']}, 'q1': {'0': [], '1': ['q0', 'q1']}}
+    sigma = {'0', '1'}
+    states = t.get_dfa_states({'q0', 'q1'})
 
     expected = {'': {'0': '', '1': ''}, '[q0]': {'0': '[q0q1]', '1': '[q1]'}, '[q1]': {'0': '', '1': '[q0q1]'}, '[q0q1]': {'0': '[q0q1]', '1': '[q0q1]'}}
-    actual = t.get_transition_function(input_delta)
+    actual = t.get_transition_function(input_delta, sigma, states)
     assert actual == expected
 
 def test_empty_initial_state():

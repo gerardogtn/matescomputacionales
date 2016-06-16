@@ -13,31 +13,31 @@ def transform(states, sigma, delta, initialState, finalStates):
     """
 
     out_states = get_power_set(states)
-    out_delta = get_transition_function(delta)
+    out_delta = get_transition_function(delta, sigma, out_states)
     out_initial_state = get_initial_state(initialState)
     out_final_states = get_final_states(out_states, finalStates)
 
     return [out_states, sigma, out_delta, out_final_states, out_final_states]
 
 
-def get_power_set(givenSet):
+def get_dfa_states(givenSet):
     """ Return the power set of a given set"""
     elementList = list(givenSet)
     numberOfElements = len(elementList)
     powerSet = set()
 
     for i in range(int(math.pow(2, numberOfElements))):
-        currentSet = set()
+        element = []
         binary = bin(i)[2:].zfill(numberOfElements)
         for j in range(numberOfElements):
             if binary[j] == '1':
-                currentSet.add(elementList[j])
+                element.append(elementList[j])
 
-        powerSet.add(frozenset(currentSet))
+        powerSet.add('' if len(element) == 0 else '[{}]'.format(''.join(element)))
 
     return powerSet
 
-def get_transition_function(delta):
+def get_transition_function(delta, sigma, dfaStates):
     """ Return the transition function of a dfa given the transition function
     of a nfa
 
