@@ -37,7 +37,7 @@ def get_dfa_states(nfaStates):
             if binary_i[j] == '1':
                 currentState.append(elementList[j])
 
-        dfaStates.add('' if len(currentState) == 0 else '[{}]'.format(''.join(currentState)))
+        dfaStates.add('' if len(currentState) == 0 else '[{}]'.format(','.join(currentState)))
 
     return dfaStates
 
@@ -51,7 +51,14 @@ def get_transition_function(delta, sigma, dfaStates):
     sigma -- A set containing all characters in the alphabet.
     dfaStates -- All the states in the dfa representation of the nfa.
     """
-    return out ## STUB
+    transitionFunction = {}
+    emptyState = {}
+    for a in sigma: emptyState[a] = ''
+    transitionFunction[''] = emptyState
+
+
+
+    return transitionFunction ## STUB
 
 def get_initial_state(initialState):
     """ Return the given string surrounded by brackets """

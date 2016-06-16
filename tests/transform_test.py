@@ -22,17 +22,22 @@ def test_transform():
     assert expected_finalStates == actual[4]
 
 def test_empty_nfa_states():
-    emptySet = set()
-
     expected = {''}
-    actual = t.get_dfa_states(emptySet)
+    actual = t.get_dfa_states([])
     assert actual == expected
 
 def test_double_nfa_states():
-    doubleSet = {'1', '2'}
+    doubleSet = ['1', '2']
 
-    expected = {'', '[1]', '[2]', '[12]'}
+    expected = {'', '[1]', '[2]', '[1,2]'}
     actual = t.get_dfa_states(doubleSet)
+    assert actual == expected
+
+def test_triple_nfa_states():
+    tripleSet = ['1', '2', '3']
+
+    expected = {'', '[1]', '[2]', '[3]', '[1,2]', '[1,3]', '[2,3]', '[1,2,3]'}
+    actual = t.get_dfa_states(tripleSet)
     assert actual == expected
 
 def test_transition_function():
