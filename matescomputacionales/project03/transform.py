@@ -20,22 +20,26 @@ def transform(states, sigma, delta, initialState, finalStates):
     return [out_states, sigma, out_delta, out_final_states, out_final_states]
 
 
-def get_dfa_states(givenSet):
-    """ Return the power set of a given set"""
-    elementList = list(givenSet)
+def get_dfa_states(nfaStates):
+    """ Return all the dfa states given the nfa states
+
+    Keyword arguments:
+    nfaStates -- a set of states in the nfa.
+    """
+    elementList = list(nfaStates)
     numberOfElements = len(elementList)
-    powerSet = set()
+    dfaStates = set()
 
     for i in range(int(math.pow(2, numberOfElements))):
-        element = []
-        binary = bin(i)[2:].zfill(numberOfElements)
+        currentState = []
+        binary_i = bin(i)[2:].zfill(numberOfElements)
         for j in range(numberOfElements):
-            if binary[j] == '1':
-                element.append(elementList[j])
+            if binary_i[j] == '1':
+                currentState.append(elementList[j])
 
-        powerSet.add('' if len(element) == 0 else '[{}]'.format(''.join(element)))
+        dfaStates.add('' if len(currentState) == 0 else '[{}]'.format(''.join(currentState)))
 
-    return powerSet
+    return dfaStates
 
 def get_transition_function(delta, sigma, dfaStates):
     """ Return the transition function of a dfa given the transition function
@@ -44,9 +48,10 @@ def get_transition_function(delta, sigma, dfaStates):
     Keyword arguments:
     delta -- A Dictionary<String, Dictionary<String, List<String>>> representing
     the transition funcion of a nfa.
+    sigma -- A set containing all characters in the alphabet.
+    dfaStates -- All the states in the dfa representation of the nfa.
     """
-
-    return delta ## STUB
+    return out ## STUB
 
 def get_initial_state(initialState):
     """ Return the given string surrounded by brackets """
