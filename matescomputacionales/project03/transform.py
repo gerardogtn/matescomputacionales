@@ -12,8 +12,8 @@ def transform(states, sigma, delta, initialState, finalStates):
     finalStates -- A set of strings, each string represent a final state.
     """
 
-    out_states = get_power_set(states)
-    out_delta = get_transition_function(delta, sigma, out_states)
+    out_states = get_dfa_states(states)
+    out_delta = get_transition_function(delta, sigma, out_states, states)
     out_initial_state = get_initial_state(initialState)
     out_final_states = get_final_states(out_states, finalStates)
 
@@ -24,7 +24,7 @@ def get_dfa_states(nfaStates):
     """ Return all the dfa states given the nfa states
 
     Keyword arguments:
-    nfaStates -- a set of states in the nfa.
+    nfaStates -- a list of states in the nfa.
     """
     elementList = list(nfaStates)
     numberOfElements = len(elementList)
@@ -41,7 +41,7 @@ def get_dfa_states(nfaStates):
 
     return dfaStates
 
-def get_transition_function(delta, sigma, dfaStates):
+def get_transition_function(delta, sigma, dfaStates, nfaState):
     """ Return the transition function of a dfa given the transition function
     of a nfa
 
@@ -52,13 +52,51 @@ def get_transition_function(delta, sigma, dfaStates):
     dfaStates -- All the states in the dfa representation of the nfa.
     """
     transitionFunction = {}
-    emptyState = {}
-    for a in sigma: emptyState[a] = ''
-    transitionFunction[''] = emptyState
+    emptyKey = {}
+    for a in sigma: emptyKey[a] = ''
+    transitionFunction[''] = emptyKey
 
+    for nfas in nfaState:
+        current = {}
+        for key in delta[nfas]:
+            if len(delta[nfas][key]) == 0:
+                current[key] = ''
+            else:
+                 current[key] = '[{}]'.format(','.join(delta[nfas][key]))
 
+        transitionFunction[get_initial_state(nfas)] = current
 
-    return transitionFunction ## STUB
+    for dfas in dfaStates:
+        nfaStates = dfas[1:-1].split(',')
+        if len(nfaStates) > 1:
+            myDict = {}
+            for a in sigma:
+                current = set()
+                for nfas in nfaStates:
+                    current = current.union(transitionFunction[get_initial_state(nfas)][a][1:-1].split(','))
+                orderedElements = list(current)
+                orderedElements.sort()
+                orderedElements = filter(lambda x: x != '', orderedElements)
+                myDict[a] = '' if len(current) == 0 else '[{}]'.format(','.join(orderedElements))
+            transitionFunction[dfas] = myDict
+
+    # for dfas in dfaStates:
+    #     newState = {}
+    #     nfaStates = dfas[1:-1].split(',')
+    #     for nfas in nfaStates:
+    #         for a in sigma:
+    #             try:
+    #                 newState[a].add(nfas)
+    #             except KeyError:
+    #                 newState[a] = {nfas}
+    #
+    #     for a in sigma:
+    #         print newState[a]
+    #         newState[a] = '' if newState[a] == {''} else '[{}]'.format(','.join(newState[a]))
+    #
+    #     transitionFunction[dfas] = newState
+
+    return transitionFunction
 
 def get_initial_state(initialState):
     """ Return the given string surrounded by brackets """
