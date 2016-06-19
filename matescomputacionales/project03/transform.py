@@ -1,13 +1,15 @@
 import math
+from matescomputacionales.datastructures.set import Set
 
 def transform(states, sigma, delta, initialState, finalStates):
     """ Return a 5-tuple representing a nfa given the 5-tuple describing a dfa.
 
     Keyword arguments:
-    states -- A set of strings, where each string is a state.
+    states -- A matescomputacionales.datastructures.set.Set of strings,
+    where each string is a state.
     sigma -- A set of characters, representing the alphabet of the nfa.
-    delta -- A Dictionary<String, Dictionary<String, Set<String>>> representing the
-    transition function of the nfa.
+    delta -- A Dictionary<String, Dictionary<String, Set<String>>> representing
+    the transition function of the nfa.
     initialState -- A string representing the initial state of the nfa.
     finalStates -- A set of strings, each string represent a final state.
     """
@@ -26,7 +28,7 @@ def get_dfa_states(nfaStates):
     Keyword arguments:
     nfaStates -- a list of states in the nfa.
     """
-    elementList = list(nfaStates)
+    elementList = nfaStates.entries
     numberOfElements = len(elementList)
     dfaStates = set()
 

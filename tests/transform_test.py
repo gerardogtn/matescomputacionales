@@ -1,7 +1,8 @@
 import matescomputacionales.project03.transform as t
+from matescomputacionales.datastructures.set import Set
 
 def test_transform():
-    input_states = ['q0', 'q1']
+    input_states = Set(entries=['q0', 'q1'])
     input_sigma = {'0', '1'}
     input_delta = {'q0': {'0': ['q0', 'q1'], '1': ['q.1']}, 'q1': {'0': [], '1': ['q0', 'q1']}}
     input_initialState = 'q0'
@@ -23,18 +24,18 @@ def test_transform():
 
 def test_empty_nfa_states():
     expected = {''}
-    actual = t.get_dfa_states([])
+    actual = t.get_dfa_states(Set())
     assert actual == expected
 
 def test_double_nfa_states():
-    doubleSet = ['1', '2']
+    doubleSet = Set(entries=['1', '2'])
 
     expected = {'', '[1]', '[2]', '[1,2]'}
     actual = t.get_dfa_states(doubleSet)
     assert actual == expected
 
 def test_triple_nfa_states():
-    tripleSet = ['1', '2', '3']
+    tripleSet = Set(entries=['1', '2', '3'])
 
     expected = {'', '[1]', '[2]', '[3]', '[1,2]', '[1,3]', '[2,3]', '[1,2,3]'}
     actual = t.get_dfa_states(tripleSet)
