@@ -14,7 +14,7 @@ def transform(states, sigma, delta, initialState, finalStates):
 
     out_states = get_dfa_states(states)
     out_delta = get_transition_function(delta, sigma, out_states, states)
-    out_initial_state = get_initial_state(initialState)
+    out_initial_state = surround_with_brackets(initialState)
     out_final_states = get_final_states(out_states, finalStates)
 
     return [out_states, sigma, out_delta, out_final_states, out_final_states]
@@ -64,7 +64,7 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
             else:
                  current[key] = '[{}]'.format(','.join(delta[nfas][key]))
 
-        transitionFunction[get_initial_state(nfas)] = current
+        transitionFunction[surround_with_brackets(nfas)] = current
 
     for dfas in dfaStates:
         nfaStates = dfas[1:-1].split(',')
@@ -73,7 +73,7 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
             for a in sigma:
                 current = set()
                 for nfas in nfaStates:
-                    current = current.union(transitionFunction[get_initial_state(nfas)][a][1:-1].split(','))
+                    current = current.union(transitionFunction[surround_with_brackets(nfas)][a][1:-1].split(','))
                 orderedElements = list(current)
                 orderedElements.sort()
                 orderedElements = filter(lambda x: x != '', orderedElements)
@@ -98,7 +98,7 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
 
     return transitionFunction
 
-def get_initial_state(initialState):
+def surround_with_brackets(initialState):
     """ Return the given string surrounded by brackets """
     return '[{}]'.format(initialState)
 

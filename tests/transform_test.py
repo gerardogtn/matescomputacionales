@@ -55,14 +55,14 @@ def test_empty_initial_state():
     emptyString = ''
 
     expected = '[]'
-    actual = t.get_initial_state(emptyString)
+    actual = t.surround_with_brackets(emptyString)
     assert actual == expected
 
 def test_q0_initial_state():
     q0 = 'q0'
 
     expected = '[q0]'
-    actual = t.get_initial_state(q0)
+    actual = t.surround_with_brackets(q0)
     assert actual == expected
 
 def test_empty_final_states():
