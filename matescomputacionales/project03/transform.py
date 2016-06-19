@@ -23,7 +23,7 @@ def transform(states, sigma, delta, initialState, finalStates):
 
 
 def get_dfa_states(nfaStates):
-    """ Return a python set containing all dfa states given the nfa states. 
+    """ Return a python set containing all dfa states given the nfa states.
 
     Keyword arguments:
     nfaStates -- a list of states in the nfa.
@@ -54,9 +54,7 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
     dfaStates -- All the states in the dfa representation of the nfa.
     """
     transitionFunction = {}
-    emptyKey = {}
-    for a in sigma: emptyKey[a] = ''
-    transitionFunction[''] = emptyKey
+    transitionFunction[''] = get_empty_states(sigma)
 
     for nfas in nfaState:
         current = {}
@@ -83,6 +81,11 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
             transitionFunction[dfas] = myDict
 
     return transitionFunction
+
+def get_empty_states(sigma):
+    emptyKey = {}
+    for a in sigma: emptyKey[a] = ''
+    return emptyKey
 
 def surround_with_brackets(initialState):
     """ Return the given string surrounded by brackets """
