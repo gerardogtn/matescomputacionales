@@ -20,7 +20,7 @@ def transform(states, sigma, delta, initialState, finalStates):
     out_initial_state = surround_with_brackets(initialState)
     out_final_states = get_final_states(out_states, finalStates)
 
-    return [out_states, sigma, out_delta, out_final_states, out_final_states]
+    return [out_states, sigma, out_delta, out_initial_state, out_final_states]
 
 
 def get_dfa_states(nfaStates):
@@ -106,7 +106,7 @@ def get_compound_states(nfaStates, sigma, transitionFunction):
     transitionFunction -- The transitionFunction for the dfa, at least filled with
     the transition states for all the single states.
     """
-    
+
     dfaState = {}
     for a in sigma:
         current = SortedSet()

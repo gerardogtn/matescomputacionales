@@ -4,7 +4,7 @@ from matescomputacionales.datastructures.set import Set
 def test_transform():
     input_states = Set(entries=['q0', 'q1'])
     input_sigma = {'0', '1'}
-    input_delta = {'q0': {'0': ['q0', 'q1'], '1': ['q.1']}, 'q1': {'0': [], '1': ['q0', 'q1']}}
+    input_delta = {'q0': {'0': ['q0', 'q1'], '1': ['q1']}, 'q1': {'0': [], '1': ['q0', 'q1']}}
     input_initialState = 'q0'
     input_finalStates = {'q1'}
 
