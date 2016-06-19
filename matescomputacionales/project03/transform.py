@@ -23,7 +23,7 @@ def transform(states, sigma, delta, initialState, finalStates):
 
 
 def get_dfa_states(nfaStates):
-    """ Return all the dfa states given the nfa states
+    """ Return a python set containing all dfa states given the nfa states. 
 
     Keyword arguments:
     nfaStates -- a list of states in the nfa.
