@@ -82,6 +82,9 @@ class SortedSet(Set):
             self.entries.append(entry)
             return
 
+        if entry in self.entries:
+            return
+
         for i in range(len(self.entries)):
             if self.entries[i] > entry:
                 self.entries.insert(i, entry)
