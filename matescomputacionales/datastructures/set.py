@@ -74,3 +74,17 @@ class Set:
         for e in self.entries:
             eq = eq and other.contains(e)
         return eq
+
+class SortedSet(Set):
+
+    def add(self, entry):
+        if len(self.entries) == 0:
+            self.entries.append(entry)
+            return
+
+        for i in range(len(self.entries)):
+            if self.entries[i] > entry:
+                self.entries.insert(i, entry)
+                return
+
+        self.entries.append(entry)
