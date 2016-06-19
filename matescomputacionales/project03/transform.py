@@ -8,7 +8,7 @@ def transform(states, sigma, delta, initialState, finalStates):
     states -- A matescomputacionales.datastructures.set.Set of strings,
     where each string is a state.
     sigma -- A set of characters, representing the alphabet of the nfa.
-    delta -- A Dictionary<String, Dictionary<String, Set<String>>> representing
+    delta -- A Dictionary<String, Dictionary<String, List<String>>> representing
     the transition function of the nfa.
     initialState -- A string representing the initial state of the nfa.
     finalStates -- A set of strings, each string represent a final state.
@@ -57,14 +57,9 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
     transitionFunction[''] = get_empty_states(sigma)
 
     for nfas in nfaState:
-        current = {}
-        for key in delta[nfas]:
-            if len(delta[nfas][key]) == 0:
-                current[key] = ''
-            else:
-                 current[key] = '[{}]'.format(','.join(delta[nfas][key]))
+        transitionFunction[surround_with_brackets(nfas)] = get_single_states(delta, nfas)
 
-        transitionFunction[surround_with_brackets(nfas)] = current
+    print transitionFunction
 
     for dfas in dfaStates:
         nfaStates = dfas[1:-1].split(',')
@@ -92,6 +87,23 @@ def get_empty_states(sigma):
     emptyKey = {}
     for a in sigma: emptyKey[a] = ''
     return emptyKey
+
+def get_single_states(delta, nfaState):
+    """ Return a Dictionary<String, String> representing the dfa transitions
+    from a nfaState with a transition function delta. 
+
+    Keyword arguments:
+    delta -- A Dictionary<String, Dictionary<String, List<String>>> representing
+    all the possible states that can be reached from a state with input char.
+    nfaState -- A String representing a state in the nfa.
+    """
+    dfaState = {}
+    for char in delta[nfaState]:
+        if len(delta[nfaState][char]) == 0:
+            dfaState[char] = ''
+        else:
+            dfaState[char] = '[{}]'.format(','.join(delta[nfaState][char]))
+    return dfaState
 
 def surround_with_brackets(initialState):
     """ Return the given string surrounded by brackets """
