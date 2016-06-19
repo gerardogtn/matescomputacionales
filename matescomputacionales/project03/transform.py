@@ -83,6 +83,12 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
     return transitionFunction
 
 def get_empty_states(sigma):
+    """ Return a dict from each character to sigma to the empty string.
+
+    Keyword arguments:
+    sigma -- An iterable with all the characters in an alphabet,
+    with no repetitions.
+    """
     emptyKey = {}
     for a in sigma: emptyKey[a] = ''
     return emptyKey
