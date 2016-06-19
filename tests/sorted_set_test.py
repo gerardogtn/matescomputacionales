@@ -14,4 +14,4 @@ def test_add_all():
 
 def test_add_duplicates():
     set = SortedSet(entries=[2, 2, 1])
-    assert set.entries = [1, 2]
+    assert set.entries == [1, 2]
