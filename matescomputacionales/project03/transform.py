@@ -80,22 +80,6 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
                 myDict[a] = '' if len(current) == 0 else '[{}]'.format(','.join(orderedElements))
             transitionFunction[dfas] = myDict
 
-    # for dfas in dfaStates:
-    #     newState = {}
-    #     nfaStates = dfas[1:-1].split(',')
-    #     for nfas in nfaStates:
-    #         for a in sigma:
-    #             try:
-    #                 newState[a].add(nfas)
-    #             except KeyError:
-    #                 newState[a] = {nfas}
-    #
-    #     for a in sigma:
-    #         print newState[a]
-    #         newState[a] = '' if newState[a] == {''} else '[{}]'.format(','.join(newState[a]))
-    #
-    #     transitionFunction[dfas] = newState
-
     return transitionFunction
 
 def surround_with_brackets(initialState):
