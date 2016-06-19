@@ -96,6 +96,17 @@ def get_single_states(delta, nfaState):
     return dfaState
 
 def get_compound_states(nfaStates, sigma, transitionFunction):
+    """ Given the transitionfunction for all individual states, and the nfaStates
+    that are part of a dfa state, return a dict with each character poiting to the
+    appropiate dfa state
+
+    Keyword arguments:
+    nfaStates -- An iterable of string where each represents a reachable state.
+    sigma -- The alphabet of the nfa.
+    transitionFunction -- The transitionFunction for the dfa, at least filled with
+    the transition states for all the single states.
+    """
+    
     dfaState = {}
     for a in sigma:
         current = SortedSet()
