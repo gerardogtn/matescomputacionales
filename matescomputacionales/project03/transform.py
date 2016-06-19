@@ -1,5 +1,6 @@
 import math
 from matescomputacionales.datastructures.set import Set
+from matescomputacionales.datastructures.set import SortedSet
 
 def transform(states, sigma, delta, initialState, finalStates):
     """ Return a 5-tuple representing a nfa given the 5-tuple describing a dfa.
@@ -59,21 +60,10 @@ def get_transition_function(delta, sigma, dfaStates, nfaState):
     for nfas in nfaState:
         transitionFunction[surround_with_brackets(nfas)] = get_single_states(delta, nfas)
 
-    print transitionFunction
-
     for dfas in dfaStates:
         nfaStates = dfas[1:-1].split(',')
         if len(nfaStates) > 1:
-            myDict = {}
-            for a in sigma:
-                current = set()
-                for nfas in nfaStates:
-                    current = current.union(transitionFunction[surround_with_brackets(nfas)][a][1:-1].split(','))
-                orderedElements = list(current)
-                orderedElements.sort()
-                orderedElements = filter(lambda x: x != '', orderedElements)
-                myDict[a] = '' if len(current) == 0 else '[{}]'.format(','.join(orderedElements))
-            transitionFunction[dfas] = myDict
+            transitionFunction[dfas] = get_compound_states(nfaStates, sigma, transitionFunction)
 
     return transitionFunction
 
@@ -90,7 +80,7 @@ def get_empty_states(sigma):
 
 def get_single_states(delta, nfaState):
     """ Return a Dictionary<String, String> representing the dfa transitions
-    from a nfaState with a transition function delta. 
+    from a nfaState with a transition function delta.
 
     Keyword arguments:
     delta -- A Dictionary<String, Dictionary<String, List<String>>> representing
@@ -103,6 +93,16 @@ def get_single_states(delta, nfaState):
             dfaState[char] = ''
         else:
             dfaState[char] = '[{}]'.format(','.join(delta[nfaState][char]))
+    return dfaState
+
+def get_compound_states(nfaStates, sigma, transitionFunction):
+    dfaState = {}
+    for a in sigma:
+        current = SortedSet()
+        for nfas in nfaStates:
+            current.addAll(transitionFunction[surround_with_brackets(nfas)][a][1:-1].split(','))
+        current.remove('')
+        dfaState[a] = '' if current.isEmpty() else '[{}]'.format(','.join(current.entries))
     return dfaState
 
 def surround_with_brackets(initialState):
