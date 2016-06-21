@@ -26,4 +26,7 @@ def draw_automata(dfaStates, dfaDelta, dfaInitialState, dfaFinalStates, fileName
     plotProperties["edge_label_dist"] = 10
     plotProperties["margin"] = nodeSize
 
-    ig.plot(g, fileName + '_solution.png', layout=layout, **plotProperties)
+    try:
+        ig.plot(g, fileName + '_solution.png', layout=layout, **plotProperties)
+    except TypeError:
+        raise RuntimeError("You need to have pycairo installed in order to show a visual representation of the automata.")
