@@ -10,7 +10,7 @@ config = {
     'download_url': 'https://github.com/gerardogtn/matematicascomputacionales',
     'author_email': 'gerardogtn@gmail.com',
     'version': '0.1',
-    'install_requires': ['pytest', 'networkx', 'matplotlib'],
+    'install_requires': ['pytest', 'igraph'],
     'packages': find_packages(exclude=('tests', 'docs', 'bin')),
     'scripts': [],
     'name': 'Matematicas computacionales'

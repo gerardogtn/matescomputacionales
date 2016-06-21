@@ -1,8 +1,7 @@
 import sys
 import transform as t
 from matescomputacionales.datastructures.set import Set
-import networkx as nx
-import matplotlib.pyplot as plt
+import igraph as ig
 
 inputFileName = sys.argv[1]
 stringsInFileName = sys.argv[1].split('.')
@@ -50,22 +49,25 @@ for s in dfaDelta:
 
 outFile.close()
 
-G = nx.DiGraph()
-G.add_nodes_from(map(lambda x: x + '*' if x == dfaInitialState else x, dfaStates))
+g = ig.Graph(directed=True)
 
+edgeLabels = []
+g.add_vertices(map(lambda x: x + '*' if x == dfaInitialState else x, dfaStates))
 for node, destinations in dfaDelta.iteritems():
     for weight, destination in dfaDelta[node].iteritems():
-        node = node + '*' if node == dfaInitialState else node
-        destination = destination + '8' if node == dfaInitialState else destination
-        G.add_edge(node, destination, {'':weight})
+        if (node != destination):
+            node = node + '*' if node == dfaInitialState else node
+            destination = destination + '*' if node == dfaInitialState else destination
+            g.add_edge(node, destination)
+            edgeLabels.append(weight)
 
-pos = nx.spring_layout(G)
-nx.draw_networkx_nodes(G, pos, node_size=1800)
-nx.draw_networkx_edges(G, pos)
-nx.draw_networkx_labels(G, pos)
-nx.draw_networkx_edge_labels(G, pos)
-G = nx.DiGraph()
-G.add_nodes_from(dfaFinalStates)
-nx.draw_networkx_nodes(G, pos, node_size=1800, node_color='b')
+layout = g.layout("kk")
 
-plt.savefig(inputFileName.split('.')[0] + "_solution.png")
+plotProperties = {}
+plotProperties["vertex_size"] = 40
+plotProperties["vertex_color"] = map(lambda x: 'light blue' if x.replace('*', '') in dfaFinalStates else 'pink', g.vs['name'])
+plotProperties["vertex_label"] = g.vs["name"]
+g.es["label"] = edgeLabels
+plotProperties["edge_label_dist"] = 10
+plotProperties["margin"] = 80
+ig.plot(g, 'a.png', layout=layout, **plotProperties)
