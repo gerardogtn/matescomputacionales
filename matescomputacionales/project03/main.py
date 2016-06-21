@@ -2,6 +2,7 @@ import sys
 import transform as t
 from matescomputacionales.datastructures.set import Set
 import igraph as ig
+import draw_automata
 
 inputFileName = sys.argv[1]
 stringsInFileName = sys.argv[1].split('.')
@@ -49,25 +50,4 @@ for s in dfaDelta:
 
 outFile.close()
 
-g = ig.Graph(directed=True)
-
-edgeLabels = []
-g.add_vertices(map(lambda x: x + '*' if x == dfaInitialState else x, dfaStates))
-for node, destinations in dfaDelta.iteritems():
-    for weight, destination in dfaDelta[node].iteritems():
-        if (node != destination):
-            node = node + '*' if node == dfaInitialState else node
-            destination = destination + '*' if node == dfaInitialState else destination
-            g.add_edge(node, destination)
-            edgeLabels.append(weight)
-
-layout = g.layout("kk")
-
-plotProperties = {}
-plotProperties["vertex_size"] = 40
-plotProperties["vertex_color"] = map(lambda x: 'light blue' if x.replace('*', '') in dfaFinalStates else 'pink', g.vs['name'])
-plotProperties["vertex_label"] = g.vs["name"]
-g.es["label"] = edgeLabels
-plotProperties["edge_label_dist"] = 10
-plotProperties["margin"] = 80
-ig.plot(g, 'a.png', layout=layout, **plotProperties)
+draw_automata.draw_automata(dfaStates, dfaDelta, dfaInitialState, dfaFinalStates, stringsInFileName[0])
