@@ -1,6 +1,6 @@
 import sys
 import transform as t
-from matescomputacionales.datastructures.set import Set
+from matescomputacionales.datastructures.set import Set, SortedSet
 import igraph as ig
 import draw_automata
 
@@ -11,7 +11,7 @@ outputFileName = '_solution.'.join(stringsInFileName)
 outFile = open(outputFileName, 'w')
 
 
-states = Set()
+states = SortedSet()
 sigma = set()
 initialState = ''
 finalStates = set()
