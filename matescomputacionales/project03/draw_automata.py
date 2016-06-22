@@ -20,7 +20,7 @@ def draw_automata(dfaStates, dfaDelta, dfaInitialState, dfaFinalStates, fileName
 
     plotProperties = {}
     plotProperties["vertex_size"] = nodeSize
-    plotProperties["vertex_color"] = map(lambda x: 'light blue' if x.replace('*', '') in dfaFinalStates else 'pink', g.vs['name'])
+    plotProperties["vertex_color"] = map(lambda x: 'lightblue' if x.replace('*', '') in dfaFinalStates else 'pink', g.vs['name'])
     plotProperties["vertex_label"] = g.vs["name"]
     g.es["label"] = edgeLabels
     plotProperties["edge_label_dist"] = 10
