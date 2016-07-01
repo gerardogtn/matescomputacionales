@@ -1,8 +1,11 @@
+from collections import OrderedDict
+
 class Derivation:
     """A class that stores derivations of a string in a cfg"""
 
     def __init__(self, entries=[]):
         self.__data = []
+        self.__current = 0
         self.addAll(entries)
 
     def add(self, string, variablePosition):
@@ -20,6 +23,19 @@ class Derivation:
 
     def isEmpty(self):
         return len(self.__data) == 0
+
+    def clean(self):
+        self.__data = list(OrderedDict.fromkeys(self.__data))
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.__current >= len(self.__data):
+            self.__current = 0
+            raise StopIteration
+        else:
+            self.__current += 1
+            return self.__data[self.__current - 1]
 
     def __str__(self):
         return str(self.__data)
